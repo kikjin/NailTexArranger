@@ -5,7 +5,7 @@ import yaml
 import sys
 
 MAPPING = 'name_color_mapping.yaml'
-OUTPUT_BASE_NAME = 'assingment_settings.yaml'
+OUTPUT_BASE_NAME = 'assignment_settings.yaml'
 
 def main():
     if len(sys.argv) != 2:
