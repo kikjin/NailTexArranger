@@ -1,0 +1,25 @@
+#Specify the color corresponding to each mask name in the color code.
+
+# Right hand = R, Left hand = L
+# Thumb = 1, index finger = 2, ..., little finger = 5
+L5: "#110000"
+L4: "#220000"
+L3: "#330000"
+L2: "#440000"
+L1: "#550000"
+R1: "#AA0000"
+R2: "#BB0000"
+R3: "#CC0000"
+R4: "#DD0000"
+R5: "#EE0000"
+# Right foot = FR, Left foot = FL
+FL5: "#001100"
+FL4: "#002200"
+FL3: "#003300"
+FL2: "#004400"
+FL1: "#005500"
+FR1: "#00AA00"
+FR2: "#00BB00"
+FR3: "#00CC00"
+FR4: "#00DD00"
+FR5: "#00EE00"
