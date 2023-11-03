@@ -31,12 +31,18 @@ NailTexArranger is a set of Python scripts designed to simplify the process of m
 
 1. Ensure you have Python 3.x installed along with the required libraries (`cv2`, `NumPy`, `PyYAML`).
 
+```bash
+# install OpenCV and NumPy
+pip install opencv-python
+#install PyYAML
+pip install PyYAML
+```
+
 1. Prepare mask images to crop nail texture for each finger part. You can use `generate_masks.py` for that.
 
 1. Run `crop_image.py` to crop the nail texture to each finger part.
 
-1. Prepare `output_settings.yaml` to define where each nail textures should be arranged. This file must be created for each avatar.
-
+1. Prepare `output_settings.yaml` to define where each nail textures sh
 1. Run `combine_images.py` to arrange cropped nail textures to your avatar's body texture.
 
 
