@@ -7,8 +7,6 @@ NailTexArranger is a set of Python scripts designed to simplify the process of m
 - [Features](#features)
 - [Requirements](#requirements)
 - [Usage](#usage)
-- [Getting Started](#getting-started)
-- [Examples](#examples)
 - [License](#license)
 
 ## Features
