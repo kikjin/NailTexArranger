@@ -9,12 +9,12 @@ OUTPUT_FOLDER = 'out'
 
 def main():
     if len(sys.argv) < 3:
-        print(f"Usage: python {sys.argv[0]} [output settings file] [cropped image folder] [composite image (optional)]")
+        print(f"Usage: python {sys.argv[0]} [assignment settings file] [clipped image folder] [composite image (optional)]")
         return
 
     settings_path = sys.argv[1]
 
-    cropped_img_folder = sys.argv[2]
+    clipped_img_folder = sys.argv[2]
 
     default_width, default_height = load_default_image_size(settings_path)
 
@@ -32,13 +32,13 @@ def main():
 
     settings = load_settings(settings_path)
 
-    # Loop to process images in the cropped_img_folder
+    # Loop to process images in the clipped_img_folder
     for mask_file, parameters in settings.items():
         # Create a pattern for the target file name
         pattern = f'.*_{mask_file}.png$'
 
         # Search for files matching the pattern
-        matched_files = [f for f in os.listdir(cropped_img_folder) if re.match(pattern, f)]
+        matched_files = [f for f in os.listdir(clipped_img_folder) if re.match(pattern, f)]
 
         if not matched_files:
             print(f'Warning: No file found for {mask_file}. Skipping.')
@@ -48,7 +48,7 @@ def main():
             print(f'Warning: Multiple files found for {mask_file}. Using the first matched file: {matched_files[0]}.')
 
         # Select the first matched file
-        matched_file = os.path.join(cropped_img_folder, matched_files[0])
+        matched_file = os.path.join(clipped_img_folder, matched_files[0])
 
         # Debug
         #print(parameters)
@@ -107,7 +107,7 @@ def main():
     os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
     # Save the composite result
-    output_basename = cropped_img_folder.replace('cropped_','')
+    output_basename = clipped_img_folder.replace('clipped_','')
     output_path = os.path.join(OUTPUT_FOLDER, f'{output_basename}_arrenged.png')
     cv2.imwrite(output_path, output_image, [cv2.IMWRITE_PNG_COMPRESSION, 0])
 

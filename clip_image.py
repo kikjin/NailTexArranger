@@ -21,7 +21,7 @@ def main():
     mask_files = [f for f in os.listdir(mask_folder) if f.endswith('.png')]
 
     # Check and create the output folder if it doesn't exist
-    output_folder = f'cropped_{src_image_name}'
+    output_folder = f'clipped_{src_image_name}'
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
 
@@ -34,8 +34,8 @@ def main():
         if mask_image.shape[:2] != src_image.shape[:2]:
             mask_image = cv2.resize(mask_image, (src_image.shape[1], src_image.shape[0]))
 
-        # Crop the original image using the ask
-        # White parts (255) in the mask image will be the cropped area
+        # clip the original image using the ask
+        # White parts (255) in the mask image will be the clipped area
         result_image = cv2.bitwise_and(src_image, src_image, mask=mask_image)
 
         # Add an alpha channel
@@ -49,11 +49,11 @@ def main():
         base_name = os.path.splitext(os.path.basename(src_image_path))[0]
         output_name = f'{base_name}_{os.path.splitext(mask_file)[0]}.png'
 
-        # Save the cropped image as a transparent PNG
+        # Save the clipped image as a transparent PNG
         output_path = os.path.join(output_folder, output_name)
         cv2.imwrite(output_path, clipped_image, [cv2.IMWRITE_PNG_COMPRESSION, 0])  # Save as transparent PNG
 
-    print(f'Cropping complete. Output destination: {output_folder}.')
+    print(f'Clipping complete. Output destination: {output_folder}.')
 
 
 def clip_transparent(image):

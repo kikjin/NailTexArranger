@@ -5,11 +5,11 @@ import yaml
 import sys
 
 MAPPING = 'name_color_mapping.yaml'
-OUTPUT_BASE_NAME = 'assignment_settings.yaml'
+OUTPUT_BASE_NAME = 'arrangement_settings.yaml'
 
 def main():
     if len(sys.argv) != 2:
-        print(f'Usage: python {sys.argv[0]} [user_image_path]')
+        print(f'Usage: python {sys.argv[0]} [source image path]')
         sys.exit(1)
 
     user_image_path = sys.argv[1]
@@ -61,7 +61,7 @@ def generate_settings(user_image_path, mask_colors_path, output_settings_path):
         # Convert numpy objects to regular Python types
         x, y, scale_x, scale_y = float(x), float(y), float(scale_x), float(scale_y)
 
-        # Add assignment settings to the dictionary
+        # Add arrangement settings to the dictionary
         settings[keyname] = {
             'Scale_X': scale_x,
             'Scale_Y': scale_y,

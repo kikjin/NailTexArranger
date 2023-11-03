@@ -3,8 +3,6 @@ import os
 import sys
 import yaml
 
-# Define the constant for the folder and file name
-#MASK_FOLDER = 'masks'
 COLOR_YAML = 'name_color_mapping.yaml'
 
 def main():
