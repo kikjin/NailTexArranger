@@ -9,7 +9,7 @@ OUTPUT_FOLDER = 'out'
 
 def main():
     if len(sys.argv) < 3:
-        print(f"Usage: python {sys.argv[0]} [assignment settings file] [clipped image folder] [composite image (optional)]")
+        print(f"Usage: python {sys.argv[0]} [arrangement settings file] [clipped image folder] [composite image (optional)]")
         return
 
     settings_path = sys.argv[1]
