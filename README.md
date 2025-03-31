@@ -2,7 +2,8 @@
 
 ## これは何？
 ネイルテクスチャを各指領域ごとに切り出し、アバターのボディテクスチャ上に再配置するために作られたPythonスクリプト群です。  
-ただし、処理対象自体はネイルテクスチャに限るものではありません。
+ただし、処理対象自体はネイルテクスチャに限るものではありません。  
+いわゆる「付け爪」ではなくアバター素体のテクスチャに統合することで、メッシュ容量及びテクスチャ容量の削減に有効です。
 
 ## 基本的な使い方と処理の流れ
 
@@ -22,14 +23,16 @@ InkscapeとAffinity Designerで動作を確認しています。
 ## ディレクトリ構成
 ```
 NailTexArranger
+├── LICENSE
+├── README.md
 ├── samples
 └── workspace
     ├── annotations
     ├── inputs
     ├── outputs
+    ├── requirements.txt
     └── scripts
         ├── arrange_images.py
-        ├── requirements.txt
         └── svg_to_annotations.py
 ```
 
@@ -70,7 +73,7 @@ python scripts/svg_to_annotations.py inputs/svg_from.svg
 python scripts/arrange_images.py -a1 annotations/svg_from.json -a2 annotations/svg_to.json inputs/nail_texture.png
 ```
 出力先は`workspace/outputs/<annotation1のファイル名>_to_<annotation2のファイル名>_[yyyyMMdd_HHmmss]/`です。  
-指定された領域が切り取り再配置された透過画像と、再配置された領域のマスク画像が生成されます。
+指定された領域が切り取り・再配置された透過画像と、再配置された領域のためのマスク画像が生成されます。
 
 ## SVGファイルの作成方法
 
@@ -86,8 +89,11 @@ Adobe Illustratorから出力したSVGファイルも使用できると思いま
   - `viewbox`がない場合は`svg`要素の`width`、`height`
 - 領域指定のための長方形
   - `rect`要素の位置、大きさ、回転、レイヤー名
+  - レイヤー名は`inkscape:label`、`serif:id`、または`id`を読み取ります。
+  - レイヤー名は切り取り／貼り付け領域を特定するための重複しない名前をつける必要があります
   - レイヤー名に当たる属性が見つからない場合は読み取りません
   - `path`や`polygon`など、`rect`以外の要素で記述された図形は読み取りません
+  - 図形の座標情報はキャンバスサイズに対する相対値で記録されます
 
 svgファイルのテンプレートは`samples/template.svg`に保存されています。  
 一からの作成ではなく、このファイルの編集を推奨します。
@@ -110,11 +116,11 @@ python scripts/arrange_images.py -a1 annotations/svg_from.json -a2 annotations/s
 ```
 
 ### 複数画像の処理
-`input_image`には複数のファイルを渡すことができます。例えば、メインテクスチャ以外にカスタムノーマルマップやマスクテクスチャがある場合、1回でまとめて処理できます。  
+`arrange_images.py`の`input_image`には複数のファイルを渡すことができます。例えば、メインテクスチャ以外にカスタムノーマルマップやマスクテクスチャがある場合、1回でまとめて処理できます。  
 その場合、出力時に下に敷く画像もそれぞれ指定することができます。
 入力画像と下に敷く画像は順番を一致させる必要があります。
 
-出力時に下に敷くテクスチャがない場合は `None`または`''`としてください
+一部の入力テクスチャのみ対応する下に敷くテクスチャがない場合は `None`または`''`としてください
 ```bash
 python scripts/arrange_images.py -a1 annotations/svg_from.json -a2 annotations/svg_to.json -u inputs/body_texture.png None inputs/black_4k.png inputs/nail_texture.png inputs/nail_normal.png inputs/nail_rame.png
 ```
