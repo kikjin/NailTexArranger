@@ -61,6 +61,7 @@ pip install -r requirements.txt
 ```
 
 ### アノテーションファイルの作成
+以下、作業ディレクトリは`NailTexAranger/workspace`とします。
 ```
 python scripts/svg_to_annotations.py inputs/svg_from.svg
 ```
@@ -110,7 +111,7 @@ svgファイルのテンプレートは`samples/template.svg`に保存されて�
 
 ### ボディテクスチャの指定
 出力時に下に敷く画像(アバターのボディテクスチャなど)をオプション`-u`, `--underlay-image`で指定できます。
-指定した場合、切り取り・再配置された透過画像を上に重ねた画像が追加で出力されます。
+指定した場合、統合された画像が追加で出力されます。
 ```bash
 python scripts/arrange_images.py -a1 annotations/svg_from.json -a2 annotations/svg_to.json -u inputs/body_texture.png inputs/nail_texture.png
 ```
