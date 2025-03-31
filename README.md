@@ -39,7 +39,7 @@ NailTexArranger
 - templates
     - svgファイルのテンプレートやサンプルファイル
 - workspace
-    - スクリプト本体や生成ファイルの出力先
+    - スクリプトの実行環境
 - annotations
     - `svg_to_annotations.py`によって生成されるアノテーションファイルの出力先
 - inputs
@@ -48,6 +48,8 @@ NailTexArranger
     - 生成されたテクスチャの出力先
 - scripts
     - Pyhonスクリプト
+
+
 
 ## 基本的な使い方
 
@@ -61,7 +63,7 @@ pip install -r requirements.txt
 ```
 
 ### アノテーションファイルの作成
-以下、作業ディレクトリは`NailTexAranger/workspace`とします。
+以下、作業ディレクトリは`NailTexArranger/workspace`とします。
 ```
 python scripts/svg_to_annotations.py inputs/svg_from.svg
 ```
@@ -73,8 +75,10 @@ python scripts/svg_to_annotations.py inputs/svg_from.svg
 ```bash
 python scripts/arrange_images.py -a1 annotations/svg_from.json -a2 annotations/svg_to.json inputs/nail_texture.png
 ```
-出力先は`workspace/outputs/<annotation1のファイル名>_to_<annotation2のファイル名>_[yyyyMMdd_HHmmss]/`です。  
-指定された領域が切り取り・再配置された透過画像と、再配置された領域のためのマスク画像が生成されます。
+出力先フォルダは`workspace/outputs/<annotation1のファイル名>_to_<annotation2のファイル名>_[yyyyMMdd_HHmmss]/`です。  
+実行のたびに`outputs`フォルダ内に自動でフォルダが作成されます。
+指定した領域が切り取り・再配置された透過画像が出力されます。  
+また、配置された領域のためのマスク画像も自動で生成されます。
 
 ## SVGファイルの作成方法
 
@@ -91,21 +95,30 @@ Adobe Illustratorから出力したSVGファイルも使用できると思いま
 - 領域指定のための長方形
   - `rect`要素の位置、大きさ、回転、レイヤー名
   - レイヤー名は`inkscape:label`、`serif:id`、または`id`を読み取ります。
-  - レイヤー名は切り取り／貼り付け領域を特定するための重複しない名前をつける必要があります
-  - レイヤー名に当たる属性が見つからない場合は読み取りません
-  - `path`や`polygon`など、`rect`以外の要素で記述された図形は読み取りません
-  - 図形の座標情報はキャンバスサイズに対する相対値で記録されます
+
+領域指定のための長方形は、以下の注意点があります。
+
+- レイヤー名は切り取り／貼り付け領域を特定するための重複しない名前をつける必要があります
+- レイヤー名に当たる属性が見つからない場合は読み取りません
+- **長方形の"上"方向を爪の先端方向に合わせてください**
+- 長方形は自由に配置・拡大縮小・回転できますが、せん断変形（shear、skew）は使用できません
+- `path`や`polygon`など、`rect`以外の要素で記述された図形は読み取りません
+
 
 svgファイルのテンプレートは`samples/template.svg`に保存されています。  
 一からの作成ではなく、このファイルの編集を推奨します。
 
-一般に、ネイルテクスチャ側のUV形状とアバター側のUV形状は異なるため、貼り付け時にアバター側UVの一部がはみ出てしまい、配置したネイルテクスチャが爪の全面に乗らない可能性があります。
-これを避けるため、領域指定の矩形を配置する時は、
+一般に、ネイルテクスチャ側のUV形状とアバター側の爪のUV形状は異なるため、貼り付け時にアバター側UVの一部がはみ出てしまい、配置したネイルテクスチャが爪の全面に乗らない可能性があります。
+これを避けるため、領域指定の長方形を配置する時は、
 
-- 切り取り側はなるべくUVギリギリ
+- 切り取り側はなるべく小さく
 - 貼り付け側は大きめに
 
 配置することをお勧めします。微妙な位置調整は何回か試行錯誤していただくか、出力後に画像編集ソフトで調整してください。
+
+長方形を大きくするとUVの他の島（アイランド）に被ってしまう時は、その部分を削除するためのマスク画像を別途用意することで、切り取り／貼り付け対象領域を調整できます。マスク画像は画像編集ソフトなどを使用して作成してください。
+
+マスク画像の使い方は[矩形領域がUVの隣の島に干渉する場合](#矩形領域がUVの隣の島に干渉する場合)を参考にしてください。
 
 ## その他の使い方
 
@@ -113,7 +126,7 @@ svgファイルのテンプレートは`samples/template.svg`に保存されて�
 出力時に下に敷く画像(アバターのボディテクスチャなど)をオプション`-u`, `--underlay-image`で指定できます。
 指定した場合、統合された画像が追加で出力されます。
 ```bash
-python scripts/arrange_images.py -a1 annotations/svg_from.json -a2 annotations/svg_to.json -u inputs/body_texture.png inputs/nail_texture.png
+python scripts/arrange_images.py inputs/nail_texture.png -a1 annotations/svg_from.json -a2 annotations/svg_to.json -u inputs/body_texture.png 
 ```
 
 ### 複数画像の処理
@@ -121,9 +134,9 @@ python scripts/arrange_images.py -a1 annotations/svg_from.json -a2 annotations/s
 その場合、出力時に下に敷く画像もそれぞれ指定することができます。
 入力画像と下に敷く画像は順番を一致させる必要があります。
 
-一部の入力テクスチャのみ対応する下に敷くテクスチャがない場合は `None`または`''`としてください
+一部の入力テクスチャのみ対応する下に敷くテクスチャがない場合は `None`または`''`（空文字列）としてください
 ```bash
-python scripts/arrange_images.py -a1 annotations/svg_from.json -a2 annotations/svg_to.json -u inputs/body_texture.png None inputs/black_4k.png inputs/nail_texture.png inputs/nail_normal.png inputs/nail_rame.png
+python scripts/arrange_images.py inputs/nail_texture.png inputs/nail_normal.png inputs/nail_rame.png -a1 annotations/svg_from.json -a2 annotations/svg_to.json -u inputs/body_texture.png None inputs/black_4k.png
 ```
 
 ### 矩形領域がUVの隣の島に干渉する場合
@@ -131,5 +144,6 @@ python scripts/arrange_images.py -a1 annotations/svg_from.json -a2 annotations/s
 これを避けるため、切り取り／貼り付け領域を制限するためのマスク画像を指定することができます。
 切り取り時のマスクは`-m1`または `--pre-crop-mask`で指定します。貼り付け時のマスクは`-m2`または`--post-paste-mask`で指定します。
 ```bash
-python scripts/arrange_images.py -a1 annotations/svg_from.json -a2 annotations/svg_to.json -u inputs/body_texture.png -m1 inputs/nail_mask.png -m2 body_nail_mask.png inputs/nail_texture.png
+python scripts/arrange_images.py inputs/nail_texture.png -a1 annotations/svg_from.json -a2 annotations/svg_to.json -u inputs/body_texture.png -m1 inputs/nail_mask.png -m2 body_nail_mask.png
 ```
+`--post-paste-mask`を指定した場合は、通常自動出力される、貼り付け領域のためのマスク画像は出力されません。

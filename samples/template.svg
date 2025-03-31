@@ -1,72 +1,233 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="100%" height="100%" viewBox="0 0 2048 2048" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-    <g id="LeftFoot" transform="matrix(0.774105,0,0,0.774105,29.7222,1377.61)">
-        <g id="LeftFootThumb" transform="matrix(1,0,0,1,-146.419,-100.403)">
-            <rect x="277.994" y="422.594" width="207.614" height="322.709" style="fill:rgb(235,235,235);"/>
-        </g>
-        <g id="LeftFootIndex" transform="matrix(1,0,0,1,125.461,-100.403)">
-            <rect x="277.994" y="422.594" width="207.614" height="322.709" style="fill:rgb(235,235,235);"/>
-        </g>
-        <g id="LeftFootMiddle" transform="matrix(1,0,0,1,384.578,-100.403)">
-            <rect x="277.994" y="422.594" width="207.614" height="322.709" style="fill:rgb(235,235,235);"/>
-        </g>
-        <g id="LeftFootRing" transform="matrix(1,0,0,1,670.651,-100.403)">
-            <rect x="277.994" y="422.594" width="207.614" height="322.709" style="fill:rgb(235,235,235);"/>
-        </g>
-        <g id="LeftFootLittle" transform="matrix(1,0,0,1,928.241,-100.403)">
-            <rect x="277.994" y="422.594" width="207.614" height="322.709" style="fill:rgb(235,235,235);"/>
-        </g>
-    </g>
-    <g id="RightFoot" transform="matrix(0.774105,0,0,0.774105,29.7222,1041.31)">
-        <g id="RightFootThumb" transform="matrix(1,0,0,1,-146.419,-100.403)">
-            <rect x="277.994" y="422.594" width="207.614" height="322.709" style="fill:rgb(235,235,235);"/>
-        </g>
-        <g id="RightFootIndex" transform="matrix(1,0,0,1,125.461,-100.403)">
-            <rect x="277.994" y="422.594" width="207.614" height="322.709" style="fill:rgb(235,235,235);"/>
-        </g>
-        <g id="RightFootMiddle" transform="matrix(1,0,0,1,384.578,-100.403)">
-            <rect x="277.994" y="422.594" width="207.614" height="322.709" style="fill:rgb(235,235,235);"/>
-        </g>
-        <g id="RightFootRing" transform="matrix(1,0,0,1,670.651,-100.403)">
-            <rect x="277.994" y="422.594" width="207.614" height="322.709" style="fill:rgb(235,235,235);"/>
-        </g>
-        <g id="RightFootLittle" transform="matrix(1,0,0,1,928.241,-100.403)">
-            <rect x="277.994" y="422.594" width="207.614" height="322.709" style="fill:rgb(235,235,235);"/>
-        </g>
-    </g>
-    <g id="LeftHand" transform="matrix(1,0,0,1,0,380.786)">
-        <g id="LeftHandThumb" transform="matrix(0.979188,0.202954,-0.202954,0.979188,-19.9589,-165.738)">
-            <rect x="277.994" y="422.594" width="207.614" height="322.709" style="fill:rgb(235,235,235);"/>
-        </g>
-        <g id="LeftHandIndex" transform="matrix(0.979188,0.202954,-0.202954,0.979188,251.922,-165.738)">
-            <rect x="277.994" y="422.594" width="207.614" height="322.709" style="fill:rgb(235,235,235);"/>
-        </g>
-        <g id="LeftHandMiddle" transform="matrix(0.979188,0.202954,-0.202954,0.979188,511.038,-165.738)">
-            <rect x="277.994" y="422.594" width="207.614" height="322.709" style="fill:rgb(235,235,235);"/>
-        </g>
-        <g id="LeftHandRing" transform="matrix(0.979188,0.202954,-0.202954,0.979188,797.112,-165.738)">
-            <rect x="277.994" y="422.594" width="207.614" height="322.709" style="fill:rgb(235,235,235);"/>
-        </g>
-        <g id="LeftHandLittle" transform="matrix(0.979188,0.202954,-0.202954,0.979188,1054.7,-165.738)">
-            <rect x="277.994" y="422.594" width="207.614" height="322.709" style="fill:rgb(235,235,235);"/>
-        </g>
-    </g>
-    <g id="RightHand">
-        <g id="RightHandThumb" transform="matrix(1,0,0,1,-146.419,-100.403)">
-            <rect x="277.994" y="422.594" width="207.614" height="322.709" style="fill:rgb(235,235,235);"/>
-        </g>
-        <g id="RightHandIndex" transform="matrix(1,0,0,1,125.461,-100.403)">
-            <rect x="277.994" y="422.594" width="207.614" height="322.709" style="fill:rgb(235,235,235);"/>
-        </g>
-        <g id="RightHandMiddle" transform="matrix(1,0,0,1,384.578,-100.403)">
-            <rect x="277.994" y="422.594" width="207.614" height="322.709" style="fill:rgb(235,235,235);"/>
-        </g>
-        <g id="RightHandRing" transform="matrix(1,0,0,1,670.651,-100.403)">
-            <rect x="277.994" y="422.594" width="207.614" height="322.709" style="fill:rgb(235,235,235);"/>
-        </g>
-        <g id="RightHandLittle" transform="matrix(1,0,0,1,928.241,-100.403)">
-            <rect x="277.994" y="422.594" width="207.614" height="322.709" style="fill:rgb(235,235,235);"/>
-        </g>
+<svg
+   width="100%"
+   height="100%"
+   viewBox="0 0 2048 2048"
+   version="1.1"
+   xml:space="preserve"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"
+   id="svg20"
+   sodipodi:docname="sample.svg"
+   inkscape:version="1.4 (e7c3feb1, 2024-10-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs20" /><sodipodi:namedview
+   id="namedview20"
+   pagecolor="#ffffff"
+   bordercolor="#000000"
+   borderopacity="0.25"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1"
+   inkscape:zoom="0.49267578"
+   inkscape:cx="1024"
+   inkscape:cy="1024"
+   inkscape:window-width="2560"
+   inkscape:window-height="1416"
+   inkscape:window-x="0"
+   inkscape:window-y="24"
+   inkscape:window-maximized="0"
+   inkscape:current-layer="svg" />
+    <g
+   id="svg">
+        
+        
+        <g
+   id="LeftFoot"
+   transform="translate(-65.5768,1256.98)"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2">
+            
+            
+            
+            
+            <rect
+   x="97.478"
+   y="444.031"
+   width="208.666"
+   height="419.507"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill-opacity:0.5"
+   id="rect6"
+   inkscape:label="LeftFootLittle"
+   transform="matrix(1.27287,0,0,0.518456,-8.48023,311.573)" /><rect
+   x="97.478"
+   y="444.031"
+   width="208.666"
+   height="419.507"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill-opacity:0.5"
+   id="rect7"
+   inkscape:label="LeftFootRing"
+   transform="matrix(1.41177,0,0,0.595448,280.041,245.127)" /><rect
+   x="97.478"
+   y="444.031"
+   width="208.666"
+   height="419.507"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill-opacity:0.5"
+   id="rect8"
+   inkscape:label="LeftFootMiddle"
+   transform="matrix(1.66219,0,0,0.726264,585.762,131.421)" />
+        <rect
+   x="97.478"
+   y="444.031"
+   width="208.666"
+   height="419.507"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill-opacity:0.5"
+   id="rect9"
+   inkscape:label="LeftFootIndex"
+   transform="matrix(1.75958,0,0,0.752876,954.681,109.791)" /><rect
+   x="97.478"
+   y="444.031"
+   width="208.666"
+   height="419.507"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill-opacity:0.5"
+   id="rect10"
+   inkscape:label="LeftFootThumb"
+   transform="matrix(2.50582,0,0,1.03631,1287.01,-131.279)" /></g><g
+   id="RightFoot"
+   transform="matrix(1,0,0,1,-65.5768,1256.98)">
+            
+            
+            
+            <rect
+   x="97.478"
+   y="444.031"
+   width="208.666"
+   height="419.507"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill-opacity:0.5"
+   id="rect11"
+   inkscape:label="RightFootLittle"
+   transform="matrix(1.27287,0,0,0.518456,-8.48023,311.573)" /><rect
+   x="97.478"
+   y="444.031"
+   width="208.666"
+   height="419.507"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill-opacity:0.5"
+   id="rect12"
+   inkscape:label="RightFootRing"
+   transform="matrix(1.41177,0,0,0.595448,280.041,245.127)" /><rect
+   x="97.478"
+   y="444.031"
+   width="208.666"
+   height="419.507"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill-opacity:0.5"
+   id="rect13"
+   inkscape:label="RightFootMiddle"
+   transform="matrix(1.66219,0,0,0.726264,585.762,131.421)" />
+            <rect
+   x="97.478"
+   y="444.031"
+   width="208.666"
+   height="419.507"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill-opacity:0.5"
+   id="rect14"
+   inkscape:label="RightFootIndex"
+   transform="matrix(1.75958,0,0,0.752876,954.681,109.791)" />
+        <rect
+   x="97.478"
+   y="444.031"
+   width="208.666"
+   height="419.507"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill-opacity:0.5"
+   id="rect15"
+   inkscape:label="RightFootThumb"
+   transform="matrix(2.50582,0,0,1.03631,1287.01,-131.279)" /></g><g
+   id="LeftHand"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2">
+            
+            
+            
+            <rect
+   x="97.478"
+   y="444.031"
+   width="208.666"
+   height="419.507"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill-opacity:0.5"
+   id="rect1"
+   inkscape:label="LeftHandLittle"
+   transform="matrix(0.944183,0,0,0.676027,5.44095,208.451)" /><rect
+   x="97.478"
+   y="444.031"
+   width="208.666"
+   height="419.507"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill-opacity:0.5"
+   id="rect2"
+   inkscape:label="LeftHandRing"
+   transform="matrix(1.12817,0,0,0.85802,333.93,49.6364)" /><rect
+   x="97.478"
+   y="444.031"
+   width="208.666"
+   height="419.507"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill-opacity:0.5"
+   id="rect3"
+   inkscape:label="LeftHandMiddle"
+   transform="matrix(1.22044,0,0,0.985856,716.399,-58.1801)" /><rect
+   x="97.478"
+   y="444.031"
+   width="208.666"
+   height="419.507"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill-opacity:0.5"
+   id="rect4"
+   inkscape:label="LeftHandIndex"
+   transform="matrix(1.16968,0,0,0.87874903,1125.45,33.1488)" />
+            
+        <rect
+   x="97.478"
+   y="444.031"
+   width="208.666"
+   height="419.507"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill-opacity:0.5"
+   id="rect5"
+   inkscape:label="LeftHandThumb"
+   transform="matrix(1.4711,0,0,0.792981,1498.95,99.0963)" /></g>
+        <g
+   id="RightHand">
+            
+            
+            
+            
+            
+        <rect
+   x="97.478"
+   y="444.031"
+   width="208.666"
+   height="419.507"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill-opacity:0.5"
+   id="rect16"
+   inkscape:label="RightHandLittle"
+   transform="matrix(0.944183,0,0,0.676027,1667.17,982.392)" /><rect
+   x="97.478"
+   y="444.031"
+   width="208.666"
+   height="419.507"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill-opacity:0.5"
+   id="rect17"
+   inkscape:label="RightHandRing"
+   transform="matrix(1.12817,0,0,0.85802,1258.75,826.495)" /><rect
+   x="97.478"
+   y="444.031"
+   width="208.666"
+   height="419.507"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill-opacity:0.5"
+   id="rect18"
+   inkscape:label="RightHandMiddle"
+   transform="matrix(1.22044,0,0,0.985856,840.401,719.093)" /><rect
+   x="97.478"
+   y="444.031"
+   width="208.666"
+   height="419.507"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill-opacity:0.5"
+   id="rect19"
+   transform="matrix(1.16968,0,0,0.878749,453.455,812.129)"
+   inkscape:label="RightHandIndex" /><rect
+   x="97.478"
+   y="444.031"
+   width="208.666"
+   height="419.507"
+   style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;fill-opacity:0.5"
+   id="rect20"
+   transform="matrix(1.4711,0,0,0.792981,-43.6001,878.54)"
+   inkscape:label="RightHandThumb" /></g>
     </g>
 </svg>
