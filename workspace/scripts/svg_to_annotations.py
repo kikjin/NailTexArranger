@@ -324,7 +324,7 @@ def main():
     parser = argparse.ArgumentParser(description='SVGファイルから長方形（rect）要素の位置情報を抽出するスクリプトです。')
 
     parser.add_argument('input_svg', nargs='+', help='SVGファイル')
-    parser.add_argument('-o', '--output_path', help='出力先フォルダ')
+    parser.add_argument('-o', '--output-path', help='出力先フォルダ')
 
     args = parser.parse_args()
 

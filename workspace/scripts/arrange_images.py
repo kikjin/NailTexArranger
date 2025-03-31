@@ -308,11 +308,11 @@ def main():
     parser.add_argument('input_image', nargs='+', help='切り取られるテクスチャファイル')
     parser.add_argument('-a1', '--annotation1', required=True, help='切り取り箇所を指定するアノテーションファイル')
     parser.add_argument('-a2', '--annotation2', required=True, help='貼り付け箇所を指定するアノテーションファイル')
-    parser.add_argument('-u', '--underlay_image', nargs='*', help='出力画像の下に重ねる画像。input_imageが複数ある場合は同じ順番で複数指定する。')
+    parser.add_argument('-u', '--underlay-image', nargs='*', help='出力画像の下に重ねる画像。input_imageが複数ある場合は同じ順番で複数指定する。')
     parser.add_argument('-w', '--width', help='出力画像の幅。省略した場合annotation2のキャンバスサイズを使用します。')
     parser.add_argument('-h', '--height', help='出力画像の高さ。省略した場合annotation2のキャンバスサイズを使用します。')
-    parser.add_argument('-m1', '--pre_crop_mask', help='切り取り領域を詳細指定するためのマスク画像')
-    parser.add_argument('-m2', '--post_paste_mask', help='貼り付け領域を詳細指定するためのマスク画像')
+    parser.add_argument('-m1', '--pre-crop-mask', help='切り取り領域を詳細指定するためのマスク画像')
+    parser.add_argument('-m2', '--post-paste-mask', help='貼り付け領域を詳細指定するためのマスク画像')
 
     args = parser.parse_args()
 
