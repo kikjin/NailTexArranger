@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 4096 4096" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g id="LeftFoot" transform="matrix(-3.3852e-17,0.552845,0.552845,3.3852e-17,3518.84,2905.46)">
+        <g id="LeftFootLittle" transform="matrix(1.39855,3.39401e-32,-5.54206e-33,0.671375,-55.405,218.508)">
+            <rect x="97.478" y="444.031" width="208.666" height="419.507" style="fill-opacity:0.5;"/>
+        </g>
+        <g id="LeftFootRing" transform="matrix(1.55423,1.09301e-35,-1.71328e-32,0.728673,244.568,179.854)">
+            <rect x="97.478" y="444.031" width="208.666" height="419.507" style="fill-opacity:0.5;"/>
+        </g>
+        <g id="LeftFootMiddle" transform="matrix(1.73175,6.21088e-32,-5.06416e-32,0.851126,545.734,115.027)">
+            <rect x="97.478" y="444.031" width="208.666" height="419.507" style="fill-opacity:0.5;"/>
+        </g>
+        <g id="LeftFootIndex" transform="matrix(1.73749,9.20717e-32,-3.09846e-32,0.890601,918.66,82.5897)">
+            <rect x="97.478" y="444.031" width="208.666" height="419.507" style="fill-opacity:0.5;"/>
+        </g>
+        <g id="LeftFootThumb" transform="matrix(2.34268,1.47837e-31,-1.46267e-34,1.16022,1281.61,-92.6075)">
+            <rect x="97.478" y="444.031" width="208.666" height="419.507" style="fill-opacity:0.5;"/>
+        </g>
+    </g>
+    <g id="LeftHand" transform="matrix(-3.16578e-17,0.517011,0.517011,3.16578e-17,2741.91,1812.13)">
+        <g transform="matrix(1.98944,-9.57468e-32,1.88285e-32,1.15613,-406.074,1593.17)">
+            <g id="LeftHandLittle">
+                <rect x="97.478" y="444.031" width="208.666" height="419.507" style="fill-opacity:0.5;"/>
+            </g>
+        </g>
+        <g id="LeftHandRing" transform="matrix(1.9815,-0.0791743,0.0472268,1.18195,49.1475,1509.96)">
+            <rect x="97.478" y="444.031" width="208.666" height="419.507" style="fill-opacity:0.5;"/>
+        </g>
+        <g id="LeftHandMiddle" transform="matrix(2.22025,-1.29006e-31,1.01804e-31,1.3051,492.769,1409.31)">
+            <rect x="97.478" y="444.031" width="208.666" height="419.507" style="fill-opacity:0.5;"/>
+        </g>
+        <g transform="matrix(2.09544,0.00962064,-0.00632248,1.37708,1002.15,1340.61)">
+            <g id="LeftHandIndex">
+                <rect x="97.478" y="444.031" width="208.666" height="419.507" style="fill-opacity:0.5;"/>
+            </g>
+        </g>
+        <g id="LeftHandThumb" transform="matrix(2.13814,-0.104609,0.0642783,1.3138,1419.11,1390.44)">
+            <rect x="97.478" y="444.031" width="208.666" height="419.507" style="fill-opacity:0.5;"/>
+        </g>
+    </g>
+    <g id="RightFoot" transform="matrix(3.3852e-17,0.552845,-0.552845,3.3852e-17,577.129,2905.46)">
+        <g id="RightFootLittle" transform="matrix(1.39855,3.39401e-32,-5.54206e-33,0.671375,-55.405,218.508)">
+            <rect x="97.478" y="444.031" width="208.666" height="419.507" style="fill-opacity:0.5;"/>
+        </g>
+        <g id="RightFootRing" transform="matrix(1.55423,1.09301e-35,-1.71328e-32,0.728673,244.568,179.854)">
+            <rect x="97.478" y="444.031" width="208.666" height="419.507" style="fill-opacity:0.5;"/>
+        </g>
+        <g id="RightFootMiddle" transform="matrix(1.73175,6.21088e-32,-5.06416e-32,0.851126,545.734,115.027)">
+            <rect x="97.478" y="444.031" width="208.666" height="419.507" style="fill-opacity:0.5;"/>
+        </g>
+        <g id="RightFootIndex" transform="matrix(1.73749,9.20717e-32,-3.09846e-32,0.890601,918.66,82.5897)">
+            <rect x="97.478" y="444.031" width="208.666" height="419.507" style="fill-opacity:0.5;"/>
+        </g>
+        <g id="RightFootThumb" transform="matrix(2.34268,1.47837e-31,-1.46267e-34,1.16022,1281.61,-92.6075)">
+            <rect x="97.478" y="444.031" width="208.666" height="419.507" style="fill-opacity:0.5;"/>
+        </g>
+    </g>
+    <g id="RightHand" transform="matrix(3.16578e-17,0.517011,-0.517011,3.16578e-17,1354.12,1812.1)">
+        <g transform="matrix(1.98944,-9.57468e-32,1.88285e-32,1.15613,-406.074,1593.17)">
+            <g id="RightHandLittle">
+                <rect x="97.478" y="444.031" width="208.666" height="419.507" style="fill-opacity:0.5;"/>
+            </g>
+        </g>
+        <g id="RightHandRing" transform="matrix(1.9815,-0.0791743,0.0472268,1.18195,49.1475,1509.96)">
+            <rect x="97.478" y="444.031" width="208.666" height="419.507" style="fill-opacity:0.5;"/>
+        </g>
+        <g id="RightHandMiddle" transform="matrix(2.22025,-1.29006e-31,1.01804e-31,1.3051,492.769,1409.31)">
+            <rect x="97.478" y="444.031" width="208.666" height="419.507" style="fill-opacity:0.5;"/>
+        </g>
+        <g transform="matrix(2.09544,0.00962064,-0.00632248,1.37708,1002.15,1340.61)">
+            <g id="RightHandIndex">
+                <rect x="97.478" y="444.031" width="208.666" height="419.507" style="fill-opacity:0.5;"/>
+            </g>
+        </g>
+        <g id="RightHandThumb" transform="matrix(2.13814,-0.104609,0.0642783,1.3138,1419.11,1390.44)">
+            <rect x="97.478" y="444.031" width="208.666" height="419.507" style="fill-opacity:0.5;"/>
+        </g>
+    </g>
+</svg>
