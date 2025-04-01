@@ -247,8 +247,7 @@ python scripts/arrange_images.py inputs/nail_texture.png -a1 annotations/svg_fro
     "width": 2048,
     "height": 2048,
     "coordinate_system": "relative"
-  },
-  ...
+  }
 }
 ```
 
