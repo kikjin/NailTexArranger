@@ -3,14 +3,16 @@ import sys
 import argparse
 from pathlib import Path
 from datetime import datetime
+import logging
 
 import cv2
 import numpy as np
 
-# メモ image.shape で取ると高さ→幅の順になる。OpenCVに渡す時は幅→高さの順
-# RGBAにマスクする場合、完全透明の時はRGBA=0,0,0,0にする。それ以外はAチャンネルのみマスク適用
 
 DEFAULT_OUTPUT_FOLDER = Path(__file__).parent.parent / "outputs"  # デフォルトの出力先フォルダ
+
+logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+logger = logging.getLogger(__name__)
 
 def load_json_file(file_path):
     file = Path(file_path)
@@ -198,7 +200,7 @@ def crop_and_rearrange(input_image: np.ndarray, annotation1: dict, annotation2: 
         if region_name in annotation1_abs["regions"]:
             region1 = annotation1_abs["regions"][region_name]
         else:
-            print(f"領域がannotation1に見つからないためスキップします: {region_name} ")
+            logger.warning(f"領域がannotation1に見つからないためスキップします: {region_name} ")
             continue
 
         # annotationのregion情報から領域を指定
@@ -239,7 +241,7 @@ def crop_and_rearrange(input_image: np.ndarray, annotation1: dict, annotation2: 
 
     # 出力画像が透明な場合、エラーを出す
     if np.sum(output_image) == 0:
-        raise ValueError("Output mask image is completely black. No regions were processed.")
+        raise ValueError("Output mask image is completely blank. No regions were processed.")
     
     if post_paste_mask is not None:
         output_image = apply_mask(output_image, post_paste_mask)
@@ -296,7 +298,7 @@ def determine_composite_name(annotation1_path: Path, overlay_image_path: Path):
 
 def save_image(image, output_path):
     cv2.imwrite(output_path, image)
-    print(f"Image saved to {output_path}")
+    logger.info(f"Image saved to {output_path}")
 
 def process_images_batch(
     input_image_paths,
@@ -325,11 +327,11 @@ def process_images_batch(
             image = read_image_as_rgba(path)
             input_images.append(image)
         except Exception as e:
-            print(f"Warning: {e} \nこのファイルはスキップされます。")
+            logger.warning(f"{e} \n - このファイルはスキップされます。")
             input_images.append(None)
     #input_imagesが空か全部Noneだったらエラーで処理を終わる
     if not input_images or all(image is None for image in input_images):
-        raise ValueError("Error: 入力画像が空です。全ての画像読み込みに失敗しました。")
+        raise ValueError("入力画像が空です。全ての画像読み込みに失敗しました。")
 
     annotation1 = load_json_file(annotation1_path)
     annotation2 = load_json_file(annotation2_path)
@@ -344,9 +346,9 @@ def process_images_batch(
         underlay_image_paths = [None]
     if len(underlay_image_paths) > len(input_image_paths):
         excess = underlay_image_paths[len(input_image_paths):]
-        print("underlay_imageの要素数が多すぎます。underlay_imageの要素数はinput_imageの要素数以下である必要があります。\n以下のテクスチャは無視されます。")
+        logger.warning("underlay_imageの要素数が多すぎます。underlay_imageの要素数はinput_imageの要素数以下である必要があります。\n - 以下のテクスチャは無視されます。")
         for item in excess:
-            print(item)
+            logger.warning(f" - {item}")
 
     underlay_paths_cleaned = []
     for i in range(len(input_image_paths)):
@@ -382,8 +384,7 @@ def process_images_batch(
                 underlay_images[i], pre_crop_mask, post_paste_mask, creates_mask
             )
         except Exception as e:
-            print(f"エラーが発生したため'{input_image_paths[i]}'の処理は中断されました：")
-            print(f"{e}")
+            logger.error(f"エラーが発生したため'{input_image_paths[i]}'の処理は中断されました：\n - {e}")
             continue
 
         file_name = determine_file_base_name(input_image_paths[i], annotation2_path)
@@ -402,9 +403,9 @@ def process_images_batch(
 
     if not any(output_dir.iterdir()):
         output_dir.rmdir()
-        print("Warning: 出力内容が空です。")
+        logger.warning("出力内容が空です。")
 
-    print("処理を完了しました。")
+    logger.info("処理を完了しました。")
 
 def main():
     parser = argparse.ArgumentParser(
@@ -424,18 +425,20 @@ def main():
 
     args = parser.parse_args()
 
-    process_images_batch(
-        args.input_image,
-        args.annotation1,
-        args.annotation2,
-        DEFAULT_OUTPUT_FOLDER,
-        args.underlay_image,
-        args.width,
-        args.height,
-        args.pre_crop_mask,
-        args.post_paste_mask
-    )
-
+    try:
+        process_images_batch(
+            args.input_image,
+            args.annotation1,
+            args.annotation2,
+            DEFAULT_OUTPUT_FOLDER,
+            args.underlay_image,
+            args.width,
+            args.height,
+            args.pre_crop_mask,
+            args.post_paste_mask
+        )
+    except Exception as e:
+        logger.critical(f"{e}")
 
 if __name__ == '__main__':
     main()

@@ -319,7 +319,7 @@ def determine_output_path(input_svg: Path, output_arg: Path | None):
         output_dir = output_arg.parent if output_arg.parent != Path() else DEFAULT_OUTPUT_FOLDER
         output_dir.mkdir(parents=True, exist_ok=True)
         return output_dir / output_arg.name
-
+    
 def main():
     parser = argparse.ArgumentParser(description='SVGファイルから長方形（rect）要素の位置情報を抽出するスクリプトです。')
 
