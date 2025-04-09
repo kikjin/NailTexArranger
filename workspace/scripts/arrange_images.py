@@ -1,9 +1,8 @@
 import json
-import sys
 import argparse
+import logging
 from pathlib import Path
 from datetime import datetime
-import logging
 
 import cv2
 import numpy as np
@@ -13,6 +12,7 @@ DEFAULT_OUTPUT_FOLDER = Path(__file__).parent.parent / "outputs"  # デフォル
 
 logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 logger = logging.getLogger(__name__)
+
 
 def load_json_file(file_path):
     file = Path(file_path)

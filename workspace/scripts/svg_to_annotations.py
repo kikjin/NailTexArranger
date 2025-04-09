@@ -3,12 +3,18 @@ import re
 import math
 import sys
 import argparse
+import logging
 from pathlib import Path
 
 import numpy as np
 from lxml import etree
 
+
 DEFAULT_OUTPUT_FOLDER = Path(__file__).parent.parent / "annotations"  # デフォルトの出力先フォルダ
+
+logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+logger = logging.getLogger(__name__)
+
 
 def get_svg_canvas_size(root):
 
@@ -231,7 +237,7 @@ def parse_svg_file(svg_path, is_relative = True):
         try:
             transform_matrix = get_global_transform(rect)
         except Exception as e:
-            print(f"トランスフォームの解析エラー: {e} 領域をスキップします: {rect_id}")
+            logger.warning(f"トランスフォームの解析エラー: {e}\n - 領域をスキップします: {rect_id}")
             continue
 
         # 変形後の頂点座標から剪断変形されているか判断する
@@ -247,7 +253,7 @@ def parse_svg_file(svg_path, is_relative = True):
         
         # 許容範囲を大きめにとる(微小な剪断変形は無視する)
         if abs(angle_from_three_points - 90.0) > 1e-3:
-            print(f"Warning: トランスフォームに剪断変形が含まれています。(角度={angle_from_three_points}°) スキップします。: {rect_id}")
+            logger.warning(f"トランスフォームに剪断変形が含まれています。領域をスキップします。: {rect_id}\n - 不正な内角: {angle_from_three_points}° ")
             continue
 
         center_x_abs, center_y_abs, width, height = apply_transform(transform_matrix, x, y, width, height)
@@ -281,8 +287,7 @@ def parse_svg_file(svg_path, is_relative = True):
         }
 
         if rect_id in output["regions"]:
-            print(f"Warning: 領域名 '{rect_id}' が重複しています。スキップします。")
-            print(region)
+            logger.warning(f"領域名 '{rect_id}' が重複しています。スキップします。\n - {region}")
             continue  
 
         output["regions"][rect_id] = region
@@ -335,26 +340,26 @@ def main():
 
     # 入力SVGファイルの存在チェック
     if not input_svg.is_file():
-        print(f"エラー: 入力SVGファイルが存在しません: {input_svg}")
+        logger.critical(f"不正な入力SVGファイルです: {input_svg}")
         sys.exit(1)
 
     try:
         annotations = parse_svg_file(input_svg)
     except Exception as e:
-        print(f"エラー: SVGファイルの解析に失敗しました: {e}")
+        logger.critical(f"SVGファイルの解析に失敗しました: {e}")
         sys.exit(1)
     
     if not annotations["regions"]:
-        print(f"アノテーションが空です。")
+        logger.error(f"アノテーションが空です。")
 
     output_path = determine_output_path(input_svg, output_arg)
 
     try:
         with output_path.open('w', encoding='utf-8') as f:
             json.dump(annotations, f, indent=2, ensure_ascii=False)
-        print(f"SVGファイル '{input_svg}' からアノテーション情報を抽出し、'{output_path}' に出力しました。")
+        logger.info(f"完了: SVGファイル '{input_svg}' からアノテーション情報を抽出し、'{output_path}' に出力しました。")
     except Exception as e:
-        print(f"エラー: JSONファイルの出力に失敗しました: {e}")
+        logger.error(f"JSONファイルの出力に失敗しました: {e}")
         sys.exit(1)
 
 if __name__ == '__main__':

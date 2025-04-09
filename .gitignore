@@ -178,6 +178,9 @@ cython_debug/
 venv
 .vscode
 
+# local-only files
 local_samples
 outputs/
 !outputs/.gitkeep
+annotations/
+!annotations/.gitkeep
