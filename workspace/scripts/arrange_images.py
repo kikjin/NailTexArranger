@@ -298,6 +298,114 @@ def save_image(image, output_path):
     cv2.imwrite(output_path, image)
     print(f"Image saved to {output_path}")
 
+def process_images_batch(
+    input_image_paths,
+    annotation1_path,
+    annotation2_path,
+    output_base_dir_path=DEFAULT_OUTPUT_FOLDER,
+    underlay_image_paths=None,
+    width_override=None,
+    height_override=None,
+    pre_crop_mask_path=None,
+    post_paste_mask_path=None
+):
+    input_image_paths = [Path(p) for p in input_image_paths]
+    annotation1_path = Path(annotation1_path)
+    annotation2_path = Path(annotation2_path)
+    underlay_image_paths = [Path(p) for p in underlay_image_paths] if underlay_image_paths else []
+
+    width_override = int(width_override) if width_override else None
+    height_override = int(height_override) if height_override else None
+    pre_crop_mask_path = Path(pre_crop_mask_path) if pre_crop_mask_path else None
+    post_paste_mask_path = Path(post_paste_mask_path) if post_paste_mask_path else None
+
+    input_images = []
+    for path in input_image_paths:
+        try:
+            image = read_image_as_rgba(path)
+            input_images.append(image)
+        except Exception as e:
+            print(f"Warning: {e} \nこのファイルはスキップされます。")
+            input_images.append(None)
+    #input_imagesが空か全部Noneだったらエラーで処理を終わる
+    if not input_images or all(image is None for image in input_images):
+        raise ValueError("Error: 入力画像が空です。全ての画像読み込みに失敗しました。")
+
+    annotation1 = load_json_file(annotation1_path)
+    annotation2 = load_json_file(annotation2_path)
+
+    if width_override:
+        annotation2['canvas']['width'] = width_override
+    if height_override:
+        annotation2['canvas']['height'] = height_override
+
+    # underlay path normalization
+    if not underlay_image_paths:
+        underlay_image_paths = [None]
+    if len(underlay_image_paths) > len(input_image_paths):
+        excess = underlay_image_paths[len(input_image_paths):]
+        print("underlay_imageの要素数が多すぎます。underlay_imageの要素数はinput_imageの要素数以下である必要があります。\n以下のテクスチャは無視されます。")
+        for item in excess:
+            print(item)
+
+    underlay_paths_cleaned = []
+    for i in range(len(input_image_paths)):
+        try:
+            path = underlay_image_paths[i]
+            if not path or str(path).lower() == 'none':
+                underlay_paths_cleaned.append(None)
+            else:
+                underlay_paths_cleaned.append(path)
+        except IndexError:
+            underlay_paths_cleaned.append(None)
+
+    underlay_images = [read_image_as_rgba(img) for img in underlay_image_paths]
+
+    pre_crop_mask = read_image_as_rgba(pre_crop_mask_path) if pre_crop_mask_path else None
+    post_paste_mask = read_image_as_rgba(post_paste_mask_path) if post_paste_mask_path else None
+
+    # 出力先フォルダを作成
+    output_base_dir_path = DEFAULT_OUTPUT_FOLDER
+    output_base_dir_path.mkdir(parents=True, exist_ok=True)
+    output_dir = create_output_directory(output_base_dir_path, annotation1_path, annotation2_path)
+
+    creates_mask = post_paste_mask is None
+
+    # メイン処理のループ
+    for i in range(len(input_images)):
+        if input_images[i] is None:
+            continue
+
+        try:
+            output_images = crop_and_rearrange(
+                input_images[i], annotation1, annotation2,
+                underlay_images[i], pre_crop_mask, post_paste_mask, creates_mask
+            )
+        except Exception as e:
+            print(f"エラーが発生したため'{input_image_paths[i]}'の処理は中断されました：")
+            print(f"{e}")
+            continue
+
+        file_name = determine_file_base_name(input_image_paths[i], annotation2_path)
+        for type, img in output_images.items():
+            if type == "output":
+                save_image(img, output_dir / f"{file_name}.png")
+            elif type == "mask":
+                mask_name = determine_mask_name(annotation2_path)
+                save_image(img, output_dir / f"{mask_name}.png")
+                creates_mask = False
+            elif type == "composite":
+                underlay_file_name = determine_composite_name(annotation1_path, underlay_image_paths[i])
+                save_image(img, output_dir / f"{underlay_file_name}.png")
+            else:
+                save_image(img, output_dir / f"{file_name}_{type}.png")
+
+    if not any(output_dir.iterdir()):
+        output_dir.rmdir()
+        print("Warning: 出力内容が空です。")
+
+    print("処理を完了しました。")
+
 def main():
     parser = argparse.ArgumentParser(
         description='画像とアノテーションファイルから複数の矩形領域を切り取り再配置するスクリプトです。',
@@ -316,108 +424,17 @@ def main():
 
     args = parser.parse_args()
 
-    input_image_paths = [Path(p) for p in args.input_image]
-    annotation1_path = Path(args.annotation1)
-    annotation2_path = Path(args.annotation2)
-    underlay_image_paths = [Path(p) for p in args.underlay_image] if args.underlay_image else []
-    width_override = int(args.width) if args.width else None
-    height_overrride = int(args.height) if args.height else None
-    pre_crop_mask_path = Path(args.pre_crop_mask) if args.pre_crop_mask else None
-    post_paste_mask_path = Path(args.post_paste_mask) if args.post_paste_mask else None
-
-    input_images = []
-    for path in input_image_paths:
-        try:
-            image = read_image_as_rgba(path)
-            input_images.append(image)
-        except Exception as e:
-            print(f"Warning: {e} \nこのファイルはスキップされます。")
-            input_images.append(None)
-    #input_imagesが空か全部Noneだったらエラーで処理を終わる
-    if not input_images or all(image is None for image in input_images):
-        raise ValueError("Error: 入力画像が空です。全ての画像読み込みに失敗しました。")
-    
-    annotation1 = load_json_file(annotation1_path)
-    annotation2 = load_json_file(annotation2_path)
-
-    if width_override: annotation2['canvas']['width'] = width_override
-    if height_overrride: annotation2['canvas']['height'] = height_overrride
-
-    # underlay_image_pathsの要素数を調整
-    if len(underlay_image_paths) > len(input_image_paths):
-        print("underlay_imageの要素数が多すぎます。underlay_imageの要素数はinput_imageの要素数以下である必要があります。\n以下のテクスチャは無視されます。")
-        for i in range(len(underlay_image_paths), len(input_image_paths)+1, -1):
-            print(underlay_image_paths[i])
-            underlay_image_paths.remove(i)
-
-    for i in range(len(underlay_image_paths)):
-        if underlay_image_paths[i] == 'None' or underlay_image_paths[i] == '':
-            underlay_image_paths[i] = None
-    
-    while len(underlay_image_paths) < len(input_image_paths):
-        underlay_image_paths.append(None)
-
-    underlay_images = [read_image_as_rgba(img) for img in underlay_image_paths]
-    underlay_images = []
-    image = None
-    for path in underlay_image_paths:
-        if not path or path == 'None' or path == "":
-            underlay_images.append(None)
-        else:
-            try:
-                image = read_image_as_rgba(path)
-                underlay_images.append(image)
-            except Exception as e:
-                print(f"Warning: {e} \nこのファイルはスキップされます。")
-                input_images.append(None)
-
-    pre_crop_mask = read_image_as_rgba(pre_crop_mask_path) if pre_crop_mask_path is not None else None
-    post_paste_mask = read_image_as_rgba(post_paste_mask_path) if post_paste_mask_path is not None else None
-
-    # 出力先フォルダを作成
-    output_base_dir_path = DEFAULT_OUTPUT_FOLDER
-    output_base_dir_path.mkdir(parents=True, exist_ok=True)
-    output_dir = create_output_directory(output_base_dir_path, annotation1_path, annotation2_path)
-
-    if post_paste_mask is None:
-        creates_mask = True
-    else:
-        creates_mask = False
-
-    # メイン処理のループ
-    for i in range(len(input_images)):
-        if input_images[i] is None:
-            continue
-        
-        try:
-            output_images = crop_and_rearrange(input_images[i], annotation1, annotation2, underlay_images[i], pre_crop_mask, post_paste_mask, creates_mask)
-        except Exception as e:
-            # raise e
-            print(f"エラーが発生したため'{input_image_paths[i]}'の処理は中断されました：")
-            print(f"{e}")
-            continue
-        
-        file_name = determine_file_base_name(input_image_paths[i], annotation2_path)
-        for type, img in output_images.items():
-            if type == "output":
-                save_image(img, output_dir / f"{file_name}.png")
-            elif type == "mask":
-                mask_name = determine_mask_name(annotation2_path)
-                save_image(img, output_dir / f"{mask_name}.png")
-                creates_mask = False
-            elif type == "composite":
-                underlay_file_name = determine_composite_name(annotation1_path, underlay_image_paths[i])
-                save_image(img, output_dir / f"{underlay_file_name}.png")
-            else:
-                save_image(img, output_dir / f"{file_name}_{type}.png")
-    
-
-    # 何も出力されなかったら出力先フォルダを削除
-    if not any(output_dir.iterdir()):
-        output_dir.rmdir()
-        print("Warning: 出力内容が空です。")
-
-    print("処理を完了しました。")
+    process_images_batch(
+        args.input_image,
+        args.annotation1,
+        args.annotation2,
+        DEFAULT_OUTPUT_FOLDER,
+        args.underlay_image,
+        args.width,
+        args.height,
+        args.pre_crop_mask,
+        args.post_paste_mask
+    )
 
 
 if __name__ == '__main__':
